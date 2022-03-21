@@ -9,13 +9,16 @@ checkID <- function(id){
   
   M1 <- str_sub(id,-1,-1)
   id17 <- str_sub(id,1,17)
-  if(length(id17)<17 | is.na(as.integer(id17))){
+  if(str_length(id17)<17){
     return(FALSE)
   }else{
     num <- c()
     for (i in 1:17){
       num[i]=str_sub(id17,i,i) %>% 
         as.integer()
+      if(is.na(num[i])){
+        return(FALSE)
+      }
     }
     
     Z1 <- sum(num*weight$y) %% 11
@@ -29,9 +32,9 @@ checkID <- function(id){
         }
       }
     }
+    
   }
   
-
 }
 
 ui <- fluidPage(

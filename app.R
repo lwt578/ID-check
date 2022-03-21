@@ -9,24 +9,29 @@ checkID <- function(id){
   
   M1 <- str_sub(id,-1,-1)
   id17 <- str_sub(id,1,17)
-  
-  num <- c()
-  for (i in 1:17){
-    num[i]=str_sub(id17,i,i) %>% 
-      as.integer()
-  }
-  
-  Z1 <- sum(num*weight$y) %% 11
-  
-  for (i in 1:11){
-    if (Z1==check$Z[i]){
-      if(M1==check$M[i]){
-        return(TRUE)
-      }else{
-        return(FALSE)
+  if(length(id17)<17 | is.na(as.integer(id17))){
+    return(FALSE)
+  }else{
+    num <- c()
+    for (i in 1:17){
+      num[i]=str_sub(id17,i,i) %>% 
+        as.integer()
+    }
+    
+    Z1 <- sum(num*weight$y) %% 11
+    
+    for (i in 1:11){
+      if (Z1==check$Z[i]){
+        if(M1==check$M[i]){
+          return(TRUE)
+        }else{
+          return(FALSE)
+        }
       }
     }
   }
+  
+
 }
 
 ui <- fluidPage(
